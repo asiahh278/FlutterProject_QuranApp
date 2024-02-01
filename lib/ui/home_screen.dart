@@ -1,5 +1,4 @@
-import 'dart:html';
-
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,39 +14,121 @@ class HomeScreen extends StatelessWidget {
       appBar: _appBar(),
       bottomNavigationBar: _bottomNavigationBar(),
       backgroundColor: Colors.white,
-      body: Padding(
-        // padding: const EdgeInsets.only(
-        //     top: 24,
-        //     left: 24
+      body: DefaultTabController(
+        length: 4,
+        child: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
 
-        padding: const EdgeInsets.symmetric(horizontal: 24),
+          },
+          child: Padding(
+            // padding: const EdgeInsets.only(left: 24, top: 24),
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: _salam()
 
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Assalamualaikum',
-            style: GoogleFonts.poppins(
-              color: secondary,
-              fontWeight: FontWeight.w600,
-              fontSize: 18,
-            ),
-            ),
-            Text(
-                'Minerva Aditya',
-              style: GoogleFonts.poppins(
-                color: darkPurple,
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
-              ),
-              textAlign: TextAlign.start,
-            )
-          ],
+          ),
         ),
       ),
     );
   }
 
+  Column _salam() {
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Assalamualaikum',
+          style: GoogleFonts.poppins(
+            color: secondary,
+            fontWeight: FontWeight.w600,
+            fontSize: 18,
+          ),
+          ),
+          Text(
+              'Minerva Aditya',
+            style: GoogleFonts.poppins(
+              color: darkPurple,
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+            ),
+            textAlign: TextAlign.start,
+          ),
+          const SizedBox(
+            height: 24,
+          ),
+          _lastRead()
+        ],
+      );
+  }
+
+  Stack _lastRead() {
+    return Stack(
+          children: [
+            Container(
+            height: 131,
+                // padding: const EdgeInsets.symmetric(vertical: 24),
+                decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFFDF98FA),
+                  Color(0xFF9055FF)
+                ])),
+          ),
+            Positioned(
+                bottom: 0,
+                right: 0,
+                child: SvgPicture.asset('/svg/img_banner_quran.svg')
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(width: 10),
+                  Row(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(left: 20),
+                      ),
+                      SvgPicture.asset('/svg/ic_lastRead.svg'),
+                      Text(
+                        'Last Read',
+                        style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20,),
+                  Text(
+                    'Al-Fatihah',
+                    style: GoogleFonts.poppins(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 18,
+                    ),
+                  ),
+                  const SizedBox(height: 4,),
+                  Text(
+                    'Ayat No: 1',
+                    style: GoogleFonts.poppins(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
+                    ),
+                  )
+
+                ],
+              ),
+            )
+          ],
+
+        );
+  }
 
   AppBar _appBar() => AppBar(
     backgroundColor: Colors.white,
@@ -57,9 +138,6 @@ class HomeScreen extends StatelessWidget {
         IconButton(
             onPressed: (() => {}),
             icon: SvgPicture.asset('/svg/ic_menu.svg')
-        ),
-        Center(
-
         ),
         Text(
           'Quran App',
