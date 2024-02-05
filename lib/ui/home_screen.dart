@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,20 +15,65 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: DefaultTabController(
         length: 4,
-        child: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-
-          },
           child: Padding(
             // padding: const EdgeInsets.only(left: 24, top: 24),
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: _salam()
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+              child: NestedScrollView(
+                headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) => [
+                  SliverToBoxAdapter(
+                    child: _salam(),
+                  ),
+                  SliverAppBar(
+                    automaticallyImplyLeading: false,
+                    backgroundColor: Colors.white,
+                    pinned: true,
+                    shape: Border(
+                      bottom: BorderSide(
+                        width: 2,
+                        color: primary.withOpacity(.1),
+                      )
+                    ),
+                    bottom: PreferredSize(
+                        preferredSize: Size.fromHeight(0),
+                        child: _tab()),
+                  ),
 
+                ],
+                  body: Container()
+              ),
           ),
         ),
-      ),
-    );
+      );
   }
+
+  TabBar _tab() => TabBar(tabs: [
+    _tabItem(label: 'Surah'),
+    _tabItem(label: 'Para'),
+    _tabItem(label: 'Page'),
+    _tabItem(label: 'Hijb'),
+  ],
+
+  indicator: UnderlineTabIndicator(
+    borderSide:
+      BorderSide(
+        width: 3,
+        color: primary
+      ),
+  ),
+  );
+
+  Tab _tabItem({required String label}) {
+    return Tab(
+          child: Text(
+            label,
+            style: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          )
+  );
+  }
+
 
   Column _salam() {
     return Column(
