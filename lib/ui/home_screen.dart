@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:untitled/global.dart';
+import 'package:untitled/ui/tabs/hijb_tab.dart';
+import 'package:untitled/ui/tabs/page_tab.dart';
+import 'package:untitled/ui/tabs/para_tab.dart';
+import 'package:untitled/ui/tabs/surah_tab.dart';
 
 // TODO 2: MAKE HOME SCREEN
 class HomeScreen extends StatelessWidget {
@@ -25,7 +29,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   SliverAppBar(
                     automaticallyImplyLeading: false,
-                    backgroundColor: Colors.white,
+                    elevation: 0,
                     pinned: true,
                     shape: Border(
                       bottom: BorderSide(
@@ -35,11 +39,19 @@ class HomeScreen extends StatelessWidget {
                     ),
                     bottom: PreferredSize(
                         preferredSize: Size.fromHeight(0),
-                        child: _tab()),
+                        child: _tab()
+                    ),
                   ),
 
                 ],
-                  body: Container()
+                  body: const TabBarView(
+                    children: [
+                      SurahTab(),
+                      ParaTab(),
+                      PageTab(),
+                      HijbTab()
+                    ],
+                  )
               ),
           ),
         ),
@@ -52,14 +64,13 @@ class HomeScreen extends StatelessWidget {
     _tabItem(label: 'Page'),
     _tabItem(label: 'Hijb'),
   ],
-
-  indicator: UnderlineTabIndicator(
+    indicator: UnderlineTabIndicator(
     borderSide:
       BorderSide(
         width: 3,
         color: primary
       ),
-  ),
+    ),
   );
 
   Tab _tabItem({required String label}) {
