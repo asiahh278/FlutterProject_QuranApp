@@ -27,11 +27,16 @@ environment:
 # dependencies can be manually updated by changing the version numbers below to
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
+
+# TODO 5: GET DATA FROM API
+# TODO 5.1: IMPORT THE LIBRARY
+
 dependencies:
   flutter:
     sdk: flutter
   google_fonts: ^4.0.5 # noted: import font
   flutter_svg: ^2.0.9 # noted: import svg
+  dio: ^5.4.0 # noted: making responsive & dinamis
 
 
   # The following adds the Cupertino Icons font to your application.
