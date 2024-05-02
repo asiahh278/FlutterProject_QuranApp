@@ -1,10 +1,13 @@
-// TODO 5: MAKE MODEL FOR BRIDGE
+// TODO 4: MAKE MODEL FOR BRIDGE
+// TODO 4.1: DECLARE DATA TYPE
 // To parse this JSON data, do
 //
 //     final surah = surahFromJson(jsonString);
 
 import 'package:meta/meta.dart';
 import 'dart:convert';
+
+import 'ayat.dart';
 
 List<Surah> surahFromJson(String str) => List<Surah>.from(json.decode(str).map((x) => Surah.fromJson(x)));
 
@@ -29,7 +32,11 @@ class Surah {
     required this.arti,
     required this.deskripsi,
     required this.audio,
+    this.ayat
   });
+
+  // making surah model reusable
+  List<Ayat>? ayat;
 
   factory Surah.fromJson(Map<String, dynamic> json) => Surah(
     nomor: json["nomor"],
@@ -40,7 +47,13 @@ class Surah {
     arti: json["arti"],
     deskripsi: json["deskripsi"],
     audio: json["audio"],
+
+      // add this condition, if the ayat has the 'ayat' key, so it will return list
+    ayat: json.containsKey('ayat')?
+        List<Ayat>.from(json['ayat']!.map((x) => Ayat.fromJson(x))) : null
+
   );
+
 
   Map<String, dynamic> toJson() => {
     "nomor": nomor,

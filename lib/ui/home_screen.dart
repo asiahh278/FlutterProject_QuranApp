@@ -43,6 +43,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
 
+                  // TODO 3: CREATE TAB MENU
                 ],
                   body: const TabBarView(
                     children: [
@@ -67,9 +68,10 @@ class HomeScreen extends StatelessWidget {
     indicator: UnderlineTabIndicator(
     borderSide:
       BorderSide(
-        width: 3,
+        width: 4,
         color: primary
       ),
+      insets: const EdgeInsets.symmetric(horizontal: 60)
     ),
   );
 

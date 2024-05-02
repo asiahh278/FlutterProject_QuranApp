@@ -12,46 +12,37 @@ class SurahTab extends StatelessWidget {
 
   Future <List<Surah>> _getSurahList() async { //
     String data = await rootBundle.loadString(
-        'assets/data/list_surah.json'
+        '/data/list_surah.json'
     );
 
-    // print(data);
     return surahFromJson(data);
   }
 
+  // TODO 4.2: DISPLAY THE DATA
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Surah>> (
       future: _getSurahList(),
       initialData: [],
-      builder: (
-          BuildContext context,
-          AsyncSnapshot<dynamic>
-          snapshot
-          )
-      {
-        if(!snapshot.hasData) {
-          // return _surahItem(surah: snapshot.data.elementAt());
-          return Container();
-        }
-        return ListView.separated(
-            itemBuilder: (context, index) =>
-                _surahItem(
-                context: context, surah: snapshot.data!.elementAt(context)),
-            separatorBuilder: (context, index) => Divider(
-              color: const Color(0xFFBBC4CE)
-              .withOpacity(0.35),
-            ),
-            itemCount: snapshot.data.length
-      );
-      });
+      builder: ((context, snapshot){
+    if(!snapshot.hasData) {
+    return Container();
+    }
+    return ListView.separated(
+    itemBuilder: (context, index) => _surahItem(context: context, surah: snapshot.data!.elementAt(index)),
+    separatorBuilder: (context, index) => Divider(color: const Color(0xFFAAAAAA).withOpacity(0.1)),
+    itemCount: snapshot.data!.length);
+
+    })
+    );
   }
 
-  // _surahItem({required surah}) {}
 
+
+  // TODO 4.3: DISPLAY THE UI WITH THE DATA
   Widget _surahItem({required BuildContext context, required Surah surah}) => GestureDetector(
     onTap: () {
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => DetailScreen()));
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => DetailScreen(surahNumber: surah.nomor,)));
     },
     child: Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
@@ -59,7 +50,7 @@ class SurahTab extends StatelessWidget {
         children: [
           Stack(
             children: [
-              SvgPicture.asset('assets/svg/ic_nomorsurah.svg'),
+              SvgPicture.asset('/svg/ic_nomorsurah.svg'),
               SizedBox(
                 width: 36,
                 height: 36,
@@ -90,7 +81,7 @@ class SurahTab extends StatelessWidget {
                       fontWeight: FontWeight.w500
                     ),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Row(
                     children: [
                       Text(
@@ -102,10 +93,10 @@ class SurahTab extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: 5),
-                      SvgPicture.asset('/svg/ic_ellipse.svg'),
+                      SvgPicture.asset('svg/ic_ellipse.svg'),
                       SizedBox(width: 5),
                       Text(
-                        '${surah.jumlahAyat} ayat',
+                        '${surah.jumlahAyat} Ayat',
                         style: GoogleFonts.poppins(
                           color: secondary,
                           fontSize: 12,
